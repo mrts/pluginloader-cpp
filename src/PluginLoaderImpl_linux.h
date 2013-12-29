@@ -25,7 +25,7 @@ namespace PluginLoader
 class PluginLoaderImpl
 {
 public:
-    PluginLoaderImpl(const char_t* const name) :
+    PluginLoaderImpl(const char* const name) :
         plugin(dlopen(name, RTLD_NOW))
     {
         if (!plugin)
@@ -35,10 +35,11 @@ public:
     ~PluginLoaderImpl()
     {
         // TODO: no way to check if dlclose() fails in destructor
-        dlclose(plugin);
+        if (plugin)
+            dlclose(plugin);
     }
 
-    void* getFunction(const char_t* const name)
+    void* getFunction(const char* const name)
     {
         void* function_ptr = dlsym(plugin, name);
         if (!function_ptr)
@@ -50,18 +51,4 @@ private:
     void* plugin;
 };
 
-
-PluginLoader::PluginLoader(const char_t* const name) :
-    pimpl(new PluginLoaderImpl(name))
-{ }
-
-PluginLoader::~PluginLoader()
-{ }
-
-function_handle PluginLoader::getFunction(const char_t* const name)
-{
-    return pimpl->getFunction(name);
 }
-
-}
-

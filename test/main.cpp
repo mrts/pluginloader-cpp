@@ -29,13 +29,19 @@ void testPluginLoader(const char* const what,
     cout << "---" << endl;
 }
 
+#ifdef _WIN32
+const char* const SQLITE_DLL = "sqlite3.dll";
+#else
+const char* const SQLITE_DLL = "libsqlite3.so";
+#endif
+
 int main()
 {
     testPluginLoader("invalid library (expecting FAIL)",
                      "library-that-does-not-exist", "");
     testPluginLoader("invalid function (expecting FAIL)",
-                     "libsqlite3.so", "function-that-does-not-exist");
+                     SQLITE_DLL, "function-that-does-not-exist");
     testPluginLoader("valid library with valid function (expecting SUCCESS)",
-                     "libsqlite3.so", "sqlite3_open");
+                     SQLITE_DLL, "sqlite3_open");
     return 0;
 }

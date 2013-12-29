@@ -14,7 +14,7 @@ if [[ "${SYSNAME:0:5}" == "MINGW" ]]; then
 			//v MSBuildToolsPath \
 		| grep REG_SZ | sed 's/.*REG_SZ[[:space:]]\+//')
 	[[ -z "$MSBUILD_PATH" ]] && { echo "FAIL: MSBuild v12 not installed"; exit; }
-	"${MSBUILD_PATH}MSBuild.exe" testcpp.sln
+	"${MSBUILD_PATH}MSBuild.exe" *.sln
 else
 	make
 fi

@@ -1,16 +1,16 @@
 /*
- * Platform-independent interface for loading plugins.
+ * Platform-independent interface for loading plug-ins.
  *
  * Created by Mart Somermaa in 2013.
  *
- * Distributed under the SQLite non-license :).
+ * Distributed under the SQLite non-license:
  *
  * The author disclaims copyright of this source code.
  * In place of a legal notice, here is a blessing:
  *
  *   May you do good and not evil.
  *   May you find forgiveness for yourself and forgive others.
- *   May you share freely, never taking more than you give.
+ *   May you share freely, not taking more than you give.
  *
  */
 
@@ -19,15 +19,21 @@
 
 #include <memory>
 
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#define VC_EXTRALEAN
+#include <Windows.h>
+#undef VC_EXTRALEAN
+#undef WIN32_LEAN_AND_MEAN
+#endif
+
 namespace PluginLoader
 {
 
 #ifdef _WIN32
-typedef TCHAR char_t;
-typedef FARPROC function_handle;
+typedef FARPROC function_ptr;
 #else
-typedef char char_t;
-typedef void* function_handle;
+typedef void* function_ptr;
 #endif
 
 class PluginLoaderImpl;
@@ -35,16 +41,16 @@ class PluginLoaderImpl;
 class PluginLoader
 {
 public:
-    PluginLoader(const char_t* const name);
+    PluginLoader(const char* const name);
     ~PluginLoader();
 
-    function_handle getFunction(const char_t* const name);
+    function_ptr getFunction(const char* const name);
 
 private:
 #if __cplusplus > 199711L
     std::unique_ptr<PluginLoaderImpl> pimpl;
 #else
-    // auto_ptr's should be avoided, but don't want to depend on Boost
+    // auto_ptrs should be avoided, but don't want to depend on Boost
     std::auto_ptr<PluginLoaderImpl> pimpl;
 #endif
 };

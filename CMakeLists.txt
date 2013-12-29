@@ -14,18 +14,31 @@ ADD_EXECUTABLE(${PROJECT_NAME} ${SRC})
 
 INCLUDE_DIRECTORIES("include")
 
+IF(WIN32)
+
 FILE(GLOB LIBPLUGINLOADER_SRC
 	include/[^.]*.h
+	src/[^.]*_windows.h
 	src/[^.]*.cpp)
+
+ELSE(WIN32)
+
+FILE(GLOB LIBPLUGINLOADER_SRC
+	include/[^.]*.h
+	src/[^.]*_linux.h
+	src/[^.]*.cpp)
+
+ENDIF(WIN32)
+
 ADD_LIBRARY(pluginloader STATIC ${LIBPLUGINLOADER_SRC})
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} pluginloader)
 
-# --- dl
+# --- platform specifics
 
 IF(WIN32)
 
-  # anything WIN32 specific
+  ADD_DEFINITIONS("/W4")
 
 ELSE(WIN32)
 
