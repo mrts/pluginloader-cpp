@@ -6,9 +6,9 @@
 
 CURDIR=$(dirname "$0")
 cd $CURDIR/..
-rm -rf build
-mkdir build
-cd build
+rm -rf lib
+mkdir lib
+cd lib
 
 SYSNAME=$(uname -s)
 if [[ "${SYSNAME:0:5}" == "MINGW" ]]; then

@@ -5,7 +5,7 @@
 #
 
 CURDIR=$(dirname "$0")
-cd $CURDIR/../build
+cd $CURDIR/../lib
 
 SYSNAME=$(uname -s)
 if [[ "${SYSNAME:0:5}" == "MINGW" ]]; then
