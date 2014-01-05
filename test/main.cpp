@@ -1,4 +1,4 @@
-#include <PluginLoader.h>
+#include <pluginloader/pluginloader.h>
 
 #include <iostream>
 #include <exception>

@@ -1,5 +1,3 @@
-#include <PluginLoader.h>
-
 #include <sstream>
 #include <stdexcept>
 
