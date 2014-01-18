@@ -12,10 +12,10 @@ inline void throw_error(const char* const what,
                         const char* const name)
 {
     DWORD errorCode = ::GetLastError();
-    LPSTR errorText = nullptr;
+    LPSTR errorText = NULL;
     DWORD resultLength = ::FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM |
             FORMAT_MESSAGE_ALLOCATE_BUFFER,
-            nullptr, errorCode, 0,
+            NULL, errorCode, 0,
             reinterpret_cast<LPSTR>(&errorText),
             MAX_PATH, 0);
 
